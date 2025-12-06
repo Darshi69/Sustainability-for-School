@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sustainability @ School</title>
+<link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+<header class="banner-container">
+        <h1>Welcome to Sustainability Tracker</h1>
+        <p style="color: black;" >It is a website to track the wastage of different things like water, food, and energy.</p>
+    </header>
+<div class="container">
+</div>
+<h2>What is Sustainability 🌱🌱?</h2>
+<p>
+Sustainability is the practice of meeting present needs without harming the ability of future generations to meet their own needs, by balancing environmental, social, and economic goals.
+</p>
+
+<h2>What is my mission?</h2>
+<p>
+To integrate sustainable practices into daily school life and transform the school into a carbon-free environment. This will make it a better place for everyone.
+</p>
+<div class="buttons-container">
+<button class="button button-blue">📈 Our Impact Scorecard</button>
+<button class="button button-green">🌱Join the Team of Green</button>
+<button class="button button-green">🌏Explore our Projects</button>
+</div>
+<div class="tracker">
+<div class="boxcontainer">
+<h2>
+250(KG)
+</h2>
+<p>
+Food Wasted by the Students and Teachers. (Last updated on December 6th 2025 )
+</p>
+</div>
+<div class="boxcontainer">
+<h2>
+5,250 kWh
+</h2>
+<p>
+Energy Saved (Last updated on December 6th 2025 )
+</p>
+</div>
+<div class="boxcontainer">
+<h2>
+70%
+</h2>
+<p>
+Single-Use Plastic reduced in the Cafeteria.
+</p>
+</div>
+</div>
+<H2>
+🌱Join The Programme
+<section id="participate" class="form-section">
+    <h2>🌱 Join the Sustainability Movement</h2>
+    
+    <div class="form-with-image">
+        <div class="form-container">
+            <form action="mailto:richa.diwyanshu3@gmail.com" method="POST" enctype="text/plain">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="Name" placeholder="Enter your name" required>
+
+                <label for="email">Gmail</label>
+                <input type="email" id="email" name="Email" placeholder="Enter your Gmail" required>
+
+                <label for="grade">Grade</label>
+                <input type="number" id="grade" name="Grade" placeholder="Enter your grade" min="1" max="12" required>
+
+                <button type="submit">Join Now</button>
+            </form>
+        </div>
+        
+        <div class="image-container">
+            <img src= "C:\Users\Anshm\OneDrive\Desktop\Byte Battlwe\corporate-sustainability.jpg" width="250" height="250">
+        </div>
+    </div>
+</section>
+</H2>
+
+<div class="chat-button" onclick="toggleChat()">💬</div>
+
+
+<div class="chat-window" id="chatWindow" style="display:none;">
+    <div class="chat-header">
+        🌱 Sustainability Chatbot
+        <span class="close-chat" onclick="toggleChat()">✖</span>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+        <div class="bot-message"><strong>Bot:</strong> Hi! Ask me anything about sustainability 🌍</div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Ask a question..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+    <script src="server.js"></script>
+</body>
+</html>
