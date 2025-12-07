@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Sustainability Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
 </head>
 
 <body>
@@ -179,9 +179,624 @@
             </div>
         </div>
     </main>
+    <!DOCTYPE html>
+<html lang="en">
 
-    <script src="server.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainability Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        .white-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tip-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+        }
+
+        .tip-content h3 {
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .tip-content p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .challenge-card {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .challenge-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Chatbot Styles */
+        .chat-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 1rem 1rem 0 0;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-chat {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+
+        .bot-message, .user-message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .bot-message {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+        }
+
+        .user-message {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .chat-input button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 1.25rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        .notification.show {
+            top: 2rem;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-icon {
+            font-size: 2rem;
+            animation: bounce 0.6s ease-in-out;
+        }
+
+        .notification-message {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .notification-success {
+            border-left: 4px solid #10b981;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .chat-window {
+                width: 90%;
+                right: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🌱 Sustainability Tracker</h1>
+        <p>Measure, Track, and Improve Your Environmental Impact</p>
+    </header>
+
+    <nav>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="nav-btn" onclick="switchTab('challenges')">Challenges</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>💧 Water Saved</h3>
+                    <div class="stat-value">1,250</div>
+                    <p style="color: #6b7280;">Liters</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⚡ Energy Saved</h3>
+                    <div class="stat-value">5,250</div>
+                    <p style="color: #6b7280;">kWh</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🗑️ Food Waste</h3>
+                    <div class="stat-value">250</div>
+                    <p style="color: #6b7280;">kg</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📉 Plastic Reduced</h3>
+                    <div class="stat-value">70%</div>
+                    <p style="color: #6b7280;">Reduction</p>
+                </div>
+            </div>
+
+            <div class="white-card">
+                <h2>🎯 Daily Sustainability Tips</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">💧</div>
+                        <div class="tip-content">
+                            <h3>Fix Leaky Faucets</h3>
+                            <p>A dripping tap wastes up to 15 liters per day</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔌</div>
+                        <div class="tip-content">
+                            <h3>Unplug Devices</h3>
+                            <p>Phantom power accounts for 10% of electricity bills</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🍽️</div>
+                        <div class="tip-content">
+                            <h3>Plan Your Meals</h3>
+                            <p>Reduce food waste by 30% with meal planning</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">♻️</div>
+                        <div class="tip-content">
+                            <h3>Bring Reusable Bags</h3>
+                            <p>One reusable bag saves 1000 plastic bags</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="white-card">
+                <h2>🚀 Future Plans</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🌳</div>
+                        <div class="tip-content">
+                            <h3>Tree Plantation Drive</h3>
+                            <p>Planting 500+ trees across campus by Spring 2026</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">♻️</div>
+                        <div class="tip-content">
+                            <h3>Zero Waste Cafeteria</h3>
+                            <p>Implementing composting and complete plastic elimination</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">☀️</div>
+                        <div class="tip-content">
+                            <h3>Solar Panel Installation</h3>
+                            <p>Transitioning to 100% renewable energy by 2030</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">💧</div>
+                        <div class="tip-content">
+                            <h3>Rainwater Harvesting</h3>
+                            <p>Building sustainable water management systems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenges Tab -->
+        <div id="challenges" class="tab-content">
+            <div class="white-card">
+                <h2>🏆 Join School Challenges</h2>
+                <div class="challenge-grid">
+                    <div class="challenge-card">
+                        <h3>Zero Waste Week</h3>
+                        <p>👥 45 participants</p>
+                        <span style="background: #dcfce7; color: #166534; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Active</span>
+                        <br><br>
+                        <button class="btn-primary join-btn">Join Challenge</button>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Meatless Mondays</h3>
+                        <p>👥 78 participants</p>
+                        <span style="background: #dbeafe; color: #1e40af; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Ongoing</span>
+                        <br><br>
+                        <button class="btn-primary join-btn">Join Challenge</button>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Bike to School</h3>
+                        <p>👥 32 participants</p>
+                        <span style="background: #fef3c7; color: #92400e; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Starting Soon</span>
+                        <br><br>
+                        <button class="btn-primary join-btn">Join Challenge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot -->
+    <div class="chat-button" onclick="toggleChat()">💬</div>
+    <div class="chat-window" id="chatWindow" style="display:none;">
+        <div class="chat-header">
+            🌱 Sustainability Chatbot
+            <span class="close-chat" onclick="toggleChat()">✖</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message"><strong>Bot:</strong> Hi! Ask me anything about sustainability 🌍</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="if(event.key==='Enter') sendMessage()" />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Chatbot Functions
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Add user message
+            chatMessages.innerHTML += `<div class="user-message"><strong>You:</strong> ${message}</div>`;
+            input.value = '';
+
+            // Bot response
+            setTimeout(() => {
+                const response = getBotResponse(message.toLowerCase());
+                chatMessages.innerHTML += `<div class="bot-message"><strong>Bot:</strong> ${response}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+        }
+
+        function getBotResponse(message) {
+            if (message.includes('water') || message.includes('save water')) {
+                return 'Great question! 💧 You can save water by: fixing leaks, taking shorter showers, turning off taps while brushing, and using water-efficient appliances.';
+            } else if (message.includes('energy') || message.includes('electricity')) {
+                return '⚡ To save energy: unplug devices when not in use, use LED bulbs, turn off lights, and use natural light when possible!';
+            } else if (message.includes('plastic') || message.includes('waste')) {
+                return '♻️ Reduce plastic by: using reusable bags, bottles, and containers. Say no to single-use plastics and recycle properly!';
+            } else if (message.includes('food')) {
+                return '🍽️ Reduce food waste by: planning meals, storing food properly, composting scraps, and donating excess food!';
+            } else if (message.includes('challenge')) {
+                return '🏆 Join our school challenges to make a real impact! Check the Challenges tab to participate.';
+            } else if (message.includes('hello') || message.includes('hi')) {
+                return '👋 Hello! I\'m here to help you learn about sustainability. Ask me about water, energy, plastic, or food waste!';
+                
+            } else {
+                return '🌱 That\'s interesting! Try asking about: water conservation, energy saving, plastic reduction, or food waste management.';
+            }
+        }
+
+        // Challenge Join Animation
+        function showNotification(message, type = 'success') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">🎉</span>
+                    <span class="notification-message">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Setup challenge buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const challengeButtons = document.querySelectorAll('.join-btn');
+            challengeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const challengeCard = this.closest('.challenge-card');
+                    const challengeName = challengeCard.querySelector('h3').textContent;
+                    
+                    this.textContent = 'Joined! ✓';
+                    this.style.background = '#10b981';
+                    this.disabled = true;
+                    this.style.cursor = 'not-allowed';
+                    
+                    showNotification(`Thanks for joining ${challengeName}! 🌟`, 'success');
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
+    <script src="server1.js"></script>
+</body>
 
+</html>
