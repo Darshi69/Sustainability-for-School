@@ -199,3 +199,152 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🎯 Goals system initialized');
     console.log('🗳️ Poll system ready');
 });
+
+// Tab Switching
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(tabName).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// Goals Management
+const goalsData = [];
+
+function toggleGoalForm() {
+    const form = document.getElementById('goalForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function addGoal() {
+    const name = document.getElementById('goalName').value;
+    const goalText = document.getElementById('goalText').value;
+    
+    if (name && goalText) {
+        goalsData.push({ name, goal: goalText });
+        renderGoals();
+        document.getElementById('goalName').value = '';
+        document.getElementById('goalText').value = '';
+        toggleGoalForm();
+    }
+}
+
+function renderGoals() {
+    const goalsList = document.getElementById('goalsList');
+    goalsList.innerHTML = goalsData.map((g, i) => `
+        <div class="goal-item">
+            <div>
+                <strong>${g.name}</strong>
+                <p>${g.goal}</p>
+            </div>
+            <button class="btn-secondary" onclick="removeGoal(${i})">Remove</button>
+        </div>
+    `).join('');
+}
+
+function removeGoal(index) {
+    goalsData.splice(index, 1);
+    renderGoals();
+}
+
+// Poll Management
+const pollData = [
+    {
+        question: "How often do you use reusable bags?",
+        options: ["Always", "Often", "Sometimes", "Rarely", "Never"]
+    },
+    {
+        question: "Do you separate recyclables from trash?",
+        options: ["Always", "Often", "Sometimes", "Rarely", "Never"]
+    },
+    {
+        question: "How do you usually get to school?",
+        options: ["Walk/Bike", "Public Transport", "Carpool", "Personal Car"]
+    }
+];
+
+function renderPoll() {
+    const container = document.getElementById('pollQuestions');
+    container.innerHTML = pollData.map((q, i) => `
+        <div class="poll-question">
+            <p style="font-weight: 600; margin-bottom: 1rem;">${i + 1}. ${q.question}</p>
+            ${q.options.map(opt => `
+                <label class="poll-option">
+                    <input type="radio" name="question${i}" value="${opt}">
+                    <span>${opt}</span>
+                </label>
+            `).join('')}
+        </div>
+    `).join('');
+}
+
+function submitPoll() {
+    const answered = pollData.every((q, i) => {
+        return document.querySelector(`input[name="question${i}"]:checked`);
+    });
+    
+    if (answered) {
+        showNotification('Thank you for completing the poll! 🌱', 'success');
+    } else {
+        showNotification('Please answer all questions', 'error');
+    }
+}
+
+// Challenge Join Animation
+function showNotification(message, type = 'success') {
+    // Remove any existing notification
+    const existing = document.querySelector('.notification');
+    if (existing) {
+        existing.remove();
+    }
+
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">${type === 'success' ? '🎉' : '⚠️'}</span>
+            <span class="notification-message">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Trigger animation
+    setTimeout(() => notification.classList.add('show'), 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Add event listeners to all "Join Challenge" buttons
+function setupChallengeButtons() {
+    const challengeButtons = document.querySelectorAll('.challenge-card .btn-primary');
+    challengeButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+            const challengeCard = this.closest('.challenge-card');
+            const challengeName = challengeCard.querySelector('h3').textContent;
+            
+            // Change button state
+            this.textContent = 'Joined! ✓';
+            this.style.background = '#10b981';
+            this.disabled = true;
+            this.style.cursor = 'not-allowed';
+            
+            // Show notification
+            showNotification(`Thanks for joining ${challengeName}! 🌟`, 'success');
+        });
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    renderPoll();
+    setupChallengeButtons();
+});
