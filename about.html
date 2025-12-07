@@ -1,141 +1,186 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Sustainability @ School</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Sustainability Tracker</title>
+    <link rel="stylesheet" href="style1.css">
 </head>
 
 <body>
-    <header class="banner-container">
-        <h1>Welcome to Sustainability Tracker</h1>
-        <p class="sub-header">It is a website to track the wastage of different things like water, food, and energy.
-        </p>
+    <header>
+        <h1>🌱 Sustainability Tracker</h1>
+        <p>Measure, Track, and Improve Your Environmental Impact</p>
     </header>
-    <div class="container">
-        <div class="moving-text">
-            <h3> Sustainability Tracker For School by Darshit </h3>
+
+    <nav>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="nav-btn" onclick="switchTab('goals')">Goals</button>
+            <button class="nav-btn" onclick="switchTab('challenges')">Challenges</button>
+            <button class="nav-btn" onclick="switchTab('poll')">Poll</button>
+            <button class="nav-btn" onclick="switchTab('leaderboard')">Leaderboard</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>💧 Water Saved</h3>
+                    <div class="stat-value" id="waterStat">1,250</div>
+                    <p style="color: #6b7280;">Liters</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⚡ Energy Saved</h3>
+                    <div class="stat-value" id="energyStat">5,250</div>
+                    <p style="color: #6b7280;">kWh</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🗑️ Food Waste</h3>
+                    <div class="stat-value">250</div>
+                    <p style="color: #6b7280;">kg</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📉 Plastic Reduced</h3>
+                    <div class="stat-value">70%</div>
+                    <p style="color: #6b7280;">Reduction</p>
+                </div>
+            </div>
+
+            <div class="white-card">
+                <h2>🎯 Daily Sustainability Tips</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">💧</div>
+                        <div class="tip-content">
+                            <h3>Fix Leaky Faucets</h3>
+                            <p>A dripping tap wastes up to 15 liters per day</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔌</div>
+                        <div class="tip-content">
+                            <h3>Unplug Devices</h3>
+                            <p>Phantom power accounts for 10% of electricity bills</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🍽️</div>
+                        <div class="tip-content">
+                            <h3>Plan Your Meals</h3>
+                            <p>Reduce food waste by 30% with meal planning</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">♻️</div>
+                        <div class="tip-content">
+                            <h3>Bring Reusable Bags</h3>
+                            <p>One reusable bag saves 1000 plastic bags</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </div>
-    <div class="info-boxes">
-        <div class="info-box">
-            <h2>What is Sustainability 🌱🌱?</h2>
-            <p>
-                Sustainability is the practice of meeting present needs without harming the ability of future
-                generations to meet their own needs, by balancing environmental, social, and economic goals.
-            </p>
-            <div class="info-box">
-            <h2>What is my mission?</h2>
-            <p>
-                To integrate sustainable practices into daily school life and transform the school into a carbon-free
-                environment. This will make it a better place for everyone.
-            </p>
+        <!-- Goals Tab -->
+        <div id="goals" class="tab-content">
+            <div class="white-card">
+                <h2>🎯 My Sustainability Goals</h2>
+                <button class="btn-primary" onclick="toggleGoalForm()" style="margin-bottom: 1.5rem;">+ Add Goal</button>
+                
+                <div id="goalForm" class="goal-form" style="display: none;">
+                    <input type="text" id="goalName" placeholder="Your Name">
+                    <input type="text" id="goalText" placeholder="Your Goal (e.g., Reduce plastic use by 50%)">
+                    <button class="btn-primary" onclick="addGoal()">Save Goal</button>
+                </div>
+
+                <div id="goalsList"></div>
             </div>
         </div>
 
-        <div class="info-box">
-            <h2>
-                What is the impact?
-            </h2>
-            <div class="tracker">
-                <div class="boxcontainer">
-                    <h2>
-                        250(KG)
-                    </h2>
-                    <p>
-                        Food Wasted by the Students and Teachers. (Last updated on December 6th 2025 )
-                    </p>
-                </div>
-                <div class="boxcontainer">
-                    <h2>
-                        5,250 kWh
-                    </h2>
-                    <p>
-                        Energy Saved (Last updated on December 6th 2025 )
-                    </p>
-                </div>
-                <div class="boxcontainer">
-                    <h2>
-                        70%
-                    </h2>
-                    <p>
-                        Single-Use Plastic reduced in the Cafeteria.
-                    </p>
+        <!-- Challenges Tab -->
+        <div id="challenges" class="tab-content">
+            <div class="white-card">
+                <h2>🏆 Join School Challenges</h2>
+                <div class="challenge-grid">
+                    <div class="challenge-card">
+                        <h3>Zero Waste Week</h3>
+                        <p>👥 45 participants</p>
+                        <span style="background: #dcfce7; color: #166534; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Active</span>
+                        <br><br>
+                        <button class="btn-primary">Join Challenge</button>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Meatless Mondays</h3>
+                        <p>👥 78 participants</p>
+                        <span style="background: #dbeafe; color: #1e40af; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Ongoing</span>
+                        <br><br>
+                        <button class="btn-primary">Join Challenge</button>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Bike to School</h3>
+                        <p>👥 32 participants</p>
+                        <span style="background: #fef3c7; color: #92400e; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">Starting Soon</span>
+                        <br><br>
+                        <button class="btn-primary">Join Challenge</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-container"></div>
-        <div class="future-plans-column">
-            <h2>🚀 Future Plans</h2>
-            <div class="plans-content">
-                <div class="plan-item">
-                    <h3>🌳 Tree Plantation Drive</h3>
-                    <p>Planting 500+ trees across campus by Spring 2026</p>
-                </div>
-                <div class="plan-item">
-                    <h3>♻️ Zero Waste Cafeteria</h3>
-                    <p>Implementing composting and complete plastic elimination</p>
-                </div>
-                <div class="plan-item">
-                    <h3>☀️ Solar Panel Installation</h3>
-                    <p>Transitioning to 100% renewable energy by 2030</p>
-                </div>
-                <div class="plan-item">
-                    <h3>💧 Rainwater Harvesting</h3>
-                    <p>Building sustainable water management systems</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section>
-    </div>
-    </section>
-    </H2>
-    <div class="chat-button" onclick="toggleChat()">💬</div>
-    <div class="chat-window" id="chatWindow" style="display:none;">
-        <div class="chat-header">
-            🌱 Sustainability Chatbot
-            <span class="close-chat" onclick="toggleChat()">✖</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="bot-message"><strong>Bot:</strong> Hi! Ask me anything about sustainability 🌍</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Ask a question..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-    </div>
-    <H1>
-        🌱Join The Programme
-        <div class="form-container">
-            <button id="showFormBtn" onclick="toggleForm()">Open Form</button>
-            <div id="formWrapper" class="hidden">
-                <iframe id="googleForm" src="https://forms.gle/RskyG6a55yibBG9GA" width="100%" height="650">
-                </iframe>
-            </div>
-        </div>
-        <script>
-            function toggleForm() {
-                var formWrapper = document.getElementById("formWrapper");
-                var button = document.getElementById("showFormBtn");
-                if (formWrapper.classList.contains("hidden")) {
-                    formWrapper.classList.remove("hidden");
-                    button.textContent = "Close Form";
-                } else {
-                    formWrapper.classList.add("hidden");
-                    button.textContent = "Open Form";
-                }
-            }
-        </script>
-        <script src="server.js"></script>
-</body>
 
-</html>
-</h1>
-</div>
-</div>
+        <!-- Poll Tab -->
+        <div id="poll" class="tab-content">
+            <div class="white-card">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2>🌍 Sustainability Poll</h2>
+                    <p style="color: #6b7280;">Help us understand your eco-friendly habits</p>
+                </div>
+
+                <div id="pollQuestions"></div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-primary" onclick="submitPoll()">Submit Poll</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Tab -->
+        <div id="leaderboard" class="tab-content">
+            <div class="white-card">
+                <h2>🏆 Top Sustainability Champions</h2>
+                <div class="leaderboard-item first">
+                    <div class="leaderboard-rank">1</div>
+                    <div style="flex: 1;">
+                        <strong style="font-size: 1.1rem;">Grade 8A - 450 points</strong>
+                    </div>
+                    <span style="font-size: 1.5rem;">🏆</span>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank">2</div>
+                    <div style="flex: 1;">
+                        <strong>Grade 7B - 420 points</strong>
+                    </div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank">3</div>
+                    <div style="flex: 1;">
+                        <strong>Grade 9C - 390 points</strong>
+                    </div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="leaderboard-rank">4</div>
+                    <div style="flex: 1;">
+                        <strong>Grade 6A - 350 points</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="server1.js"></script>
 </body>
 
 </html>
