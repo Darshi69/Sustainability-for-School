@@ -52,3 +52,8 @@ Students can organize:
 - Composting food waste 
 - Paper recycling workshop 
 - Eco-club activities
+
+
+## Use of AI or Me? ##
+
+I used 45% AI and rest is done by me.
