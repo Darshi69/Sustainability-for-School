@@ -18,6 +18,17 @@ function sendMessage() {
     }, 500);
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const inputBox = document.getElementById("userInput");
+    if (inputBox) {
+        inputBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+});
+
 function addUserMessage(text) {
     const chatMessages = document.getElementById("chatMessages");
     chatMessages.innerHTML += `
@@ -56,6 +67,53 @@ function getBotReply(userMsg) {
     if (msg.includes("hi") || msg.includes("hello"))
         return "Hello! Ask me anything about sustainability! 🌍";
 
-    return "That's a great question! Try asking me about water saving, plastic reduction, or energy conservation. 🌱";
+    return "That's a great question! Unfortunately, I can't answer those type of questions as I am pre-answer written ChatBot, but not an AI.";
 }
+
+
+function handleFormSubmit(event) {
+    event.preventDefault(); 
+    
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const grade = document.getElementById('grade').value;
+    
+    
+    sendEmail(name, email, grade);
+    
+    
+    const successMessage = document.getElementById('successMessage');
+    const form = document.getElementById('joinForm');
+    
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+    
+
+    setTimeout(() => {
+        successMessage.style.display = 'none';
+        form.style.display = 'block';
+        form.reset();
+    }, 5000);
+    
+    return false;
+}
+
+function sendEmail(name, email, grade) {
+    
+    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            grade: grade,
+            _replyto: email,
+            _subject: 'New Sustainability Programme Registration'
+        })
+    });
+}
+
 

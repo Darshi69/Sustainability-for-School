@@ -1,105 +1,141 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Sustainability @ School</title>
-<link rel="stylesheet" href="style.css"> 
+    <title>Sustainability @ School</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<header class="banner-container">
+    <header class="banner-container">
         <h1>Welcome to Sustainability Tracker</h1>
-        <p style="color: black;" >It is a website to track the wastage of different things like water, food, and energy.</p>
+        <p class="sub-header">It is a website to track the wastage of different things like water, food, and energy.
+        </p>
     </header>
-<div class="container">
-</div>
-<h2>What is Sustainability 🌱🌱?</h2>
-<p>
-Sustainability is the practice of meeting present needs without harming the ability of future generations to meet their own needs, by balancing environmental, social, and economic goals.
-</p>
+    <div class="container">
+        <div class="moving-text">
+            <h3> Sustainability Tracker For School by Darshit </h3>
+        </div>
 
-<h2>What is my mission?</h2>
-<p>
-To integrate sustainable practices into daily school life and transform the school into a carbon-free environment. This will make it a better place for everyone.
-</p>
-<div class="buttons-container">
-<button class="button button-blue">📈 Our Impact Scorecard</button>
-<button class="button button-green">🌱Join the Team of Green</button>
-<button class="button button-green">🌏Explore our Projects</button>
-</div>
-<div class="tracker">
-<div class="boxcontainer">
-<h2>
-250(KG)
-</h2>
-<p>
-Food Wasted by the Students and Teachers. (Last updated on December 6th 2025 )
-</p>
-</div>
-<div class="boxcontainer">
-<h2>
-5,250 kWh
-</h2>
-<p>
-Energy Saved (Last updated on December 6th 2025 )
-</p>
-</div>
-<div class="boxcontainer">
-<h2>
-70%
-</h2>
-<p>
-Single-Use Plastic reduced in the Cafeteria.
-</p>
-</div>
-</div>
-<H2>
-🌱Join The Programme
-<section id="participate" class="form-section">
-    <h2>🌱 Join the Sustainability Movement</h2>
-    
-    <div class="form-with-image">
+    </div>
+    <div class="info-boxes">
+        <div class="info-box">
+            <h2>What is Sustainability 🌱🌱?</h2>
+            <p>
+                Sustainability is the practice of meeting present needs without harming the ability of future
+                generations to meet their own needs, by balancing environmental, social, and economic goals.
+            </p>
+            <div class="info-box">
+            <h2>What is my mission?</h2>
+            <p>
+                To integrate sustainable practices into daily school life and transform the school into a carbon-free
+                environment. This will make it a better place for everyone.
+            </p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>
+                What is the impact?
+            </h2>
+            <div class="tracker">
+                <div class="boxcontainer">
+                    <h2>
+                        250(KG)
+                    </h2>
+                    <p>
+                        Food Wasted by the Students and Teachers. (Last updated on December 6th 2025 )
+                    </p>
+                </div>
+                <div class="boxcontainer">
+                    <h2>
+                        5,250 kWh
+                    </h2>
+                    <p>
+                        Energy Saved (Last updated on December 6th 2025 )
+                    </p>
+                </div>
+                <div class="boxcontainer">
+                    <h2>
+                        70%
+                    </h2>
+                    <p>
+                        Single-Use Plastic reduced in the Cafeteria.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-container"></div>
+        <div class="future-plans-column">
+            <h2>🚀 Future Plans</h2>
+            <div class="plans-content">
+                <div class="plan-item">
+                    <h3>🌳 Tree Plantation Drive</h3>
+                    <p>Planting 500+ trees across campus by Spring 2026</p>
+                </div>
+                <div class="plan-item">
+                    <h3>♻️ Zero Waste Cafeteria</h3>
+                    <p>Implementing composting and complete plastic elimination</p>
+                </div>
+                <div class="plan-item">
+                    <h3>☀️ Solar Panel Installation</h3>
+                    <p>Transitioning to 100% renewable energy by 2030</p>
+                </div>
+                <div class="plan-item">
+                    <h3>💧 Rainwater Harvesting</h3>
+                    <p>Building sustainable water management systems</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </div>
+    </section>
+    </H2>
+    <div class="chat-button" onclick="toggleChat()">💬</div>
+    <div class="chat-window" id="chatWindow" style="display:none;">
+        <div class="chat-header">
+            🌱 Sustainability Chatbot
+            <span class="close-chat" onclick="toggleChat()">✖</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message"><strong>Bot:</strong> Hi! Ask me anything about sustainability 🌍</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Ask a question..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    </div>
+    <H1>
+        🌱Join The Programme
         <div class="form-container">
-            <form action="mailto:richa.diwyanshu3@gmail.com" method="POST" enctype="text/plain">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="Name" placeholder="Enter your name" required>
-
-                <label for="email">Gmail</label>
-                <input type="email" id="email" name="Email" placeholder="Enter your Gmail" required>
-
-                <label for="grade">Grade</label>
-                <input type="number" id="grade" name="Grade" placeholder="Enter your grade" min="1" max="12" required>
-
-                <button type="submit">Join Now</button>
-            </form>
+            <button id="showFormBtn" onclick="toggleForm()">Open Form</button>
+            <div id="formWrapper" class="hidden">
+                <iframe id="googleForm" src="https://forms.gle/RskyG6a55yibBG9GA" width="100%" height="650">
+                </iframe>
+            </div>
         </div>
-        
-        <div class="image-container">
-            <img src= "C:\Users\Anshm\OneDrive\Desktop\Byte Battlwe\corporate-sustainability.jpg" width="250" height="250">
-        </div>
-    </div>
-</section>
-</H2>
-
-<div class="chat-button" onclick="toggleChat()">💬</div>
-
-
-<div class="chat-window" id="chatWindow" style="display:none;">
-    <div class="chat-header">
-        🌱 Sustainability Chatbot
-        <span class="close-chat" onclick="toggleChat()">✖</span>
-    </div>
-
-    <div class="chat-messages" id="chatMessages">
-        <div class="bot-message"><strong>Bot:</strong> Hi! Ask me anything about sustainability 🌍</div>
-    </div>
-
-    <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Ask a question..." />
-        <button onclick="sendMessage()">Send</button>
-    </div>
-</div>
-
-
-    <script src="server.js"></script>
+        <script>
+            function toggleForm() {
+                var formWrapper = document.getElementById("formWrapper");
+                var button = document.getElementById("showFormBtn");
+                if (formWrapper.classList.contains("hidden")) {
+                    formWrapper.classList.remove("hidden");
+                    button.textContent = "Close Form";
+                } else {
+                    formWrapper.classList.add("hidden");
+                    button.textContent = "Open Form";
+                }
+            }
+        </script>
+        <script src="server.js"></script>
 </body>
+
+</html>
+</h1>
+</div>
+</div>
+</body>
+
 </html>
