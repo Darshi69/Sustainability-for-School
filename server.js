@@ -1,119 +1,201 @@
-
-function toggleChat() {
-    const chat = document.getElementById("chatWindow");
-    chat.style.display = (chat.style.display === "block") ? "none" : "block";
+// Tab switching functionality
+function switchTab(tabName) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab
+    document.getElementById(tabName).classList.add('active');
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
 }
 
-function sendMessage() {
-    const inputBox = document.getElementById("userInput");
-    const message = inputBox.value.trim();
-    if (message === "") return;
+// Real-time stats animation
+let waterValue = 1250;
+let energyValue = 5250;
 
-    addUserMessage(message);
-    inputBox.value = "";
-
-    setTimeout(() => {
-        let botReply = getBotReply(message);
-        addBotMessage(botReply);
-    }, 500);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const inputBox = document.getElementById("userInput");
-    if (inputBox) {
-        inputBox.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
+setInterval(() => {
+    waterValue += Math.random() * 2;
+    energyValue += Math.random() * 5;
+    
+    const waterElement = document.getElementById('waterStat');
+    const energyElement = document.getElementById('energyStat');
+    
+    if (waterElement) {
+        waterElement.textContent = Math.floor(waterValue).toLocaleString();
     }
-});
+    if (energyElement) {
+        energyElement.textContent = Math.floor(energyValue).toLocaleString();
+    }
+}, 3000);
 
-function addUserMessage(text) {
-    const chatMessages = document.getElementById("chatMessages");
-    chatMessages.innerHTML += `
-        <div class="user-message"><strong>You:</strong> ${text}</div>
-    `;
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+// Goals functionality
+let goals = [];
 
-function addBotMessage(text) {
-    const chatMessages = document.getElementById("chatMessages");
-    chatMessages.innerHTML += `
-        <div class="bot-message"><strong>Bot:</strong> ${text}</div>
-    `;
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-
-function getBotReply(userMsg) {
-    const msg = userMsg.toLowerCase();
-
-    if (msg.includes("water")) 
-        return "Using bucket baths instead of showers and fixing leaks can save up to 60% water! 💧";
-
-    if (msg.includes("plastic")) 
-        return "Try using metal bottles or lunch boxes. Single-use plastic harms oceans a lot. 🌊";
-
-    if (msg.includes("energy"))
-        return "Turning off fans/lights when not needed is the easiest way to save energy! ⚡";
-
-    if (msg.includes("food"))
-        return "Take only what you can finish. Food waste releases harmful gases! 🍽️";
-
-    if (msg.includes("what is sustainability"))
-        return "Sustainability means using resources without harming the future. 🌱";
-
-    if (msg.includes("hi") || msg.includes("hello"))
-        return "Hello! Ask me anything about sustainability! 🌍";
-
-    return "That's a great question! Unfortunately, I can't answer those type of questions as I am pre-answer written ChatBot, but not an AI.";
-}
-
-
-function handleFormSubmit(event) {
-    event.preventDefault(); 
-    
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const grade = document.getElementById('grade').value;
-    
-    
-    sendEmail(name, email, grade);
-    
-    
-    const successMessage = document.getElementById('successMessage');
-    const form = document.getElementById('joinForm');
-    
-    form.style.display = 'none';
-    successMessage.style.display = 'block';
-    
-
-    setTimeout(() => {
-        successMessage.style.display = 'none';
+function toggleGoalForm() {
+    const form = document.getElementById('goalForm');
+    if (form.style.display === 'none') {
         form.style.display = 'block';
-        form.reset();
-    }, 5000);
-    
-    return false;
+    } else {
+        form.style.display = 'none';
+    }
 }
 
-function sendEmail(name, email, grade) {
+function addGoal() {
+    const nameInput = document.getElementById('goalName');
+    const textInput = document.getElementById('goalText');
     
-    fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            email: email,
-            grade: grade,
-            _replyto: email,
-            _subject: 'New Sustainability Programme Registration'
-        })
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+    
+    if (name && text) {
+        goals.push({ 
+            name: name, 
+            text: text, 
+            date: new Date().toLocaleDateString() 
+        });
+        
+        nameInput.value = '';
+        textInput.value = '';
+        toggleGoalForm();
+        renderGoals();
+    } else {
+        alert('Please fill in both fields!');
+    }
+}
+
+function renderGoals() {
+    const list = document.getElementById('goalsList');
+    
+    if (goals.length === 0) {
+        list.innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: #6b7280;">
+                <p style="font-size: 1.1rem;">No goals yet. Start by adding your first goal!</p>
+            </div>
+        `;
+    } else {
+        list.innerHTML = goals.map(goal => `
+            <div class="goal-item">
+                <h3>${goal.name}</h3>
+                <p>${goal.text}</p>
+                <p style="font-size: 0.875rem; margin-top: 0.5rem; color: #9ca3af;">Started on ${goal.date}</p>
+            </div>
+        `).join('');
+    }
+}
+
+// Poll functionality
+const pollQuestions = [
+    {
+        question: "How often do you use reusable bags for shopping?",
+        options: ["Always", "Most of the time", "Sometimes", "Rarely", "Never"]
+    },
+    {
+        question: "Do you actively reduce your energy consumption at home?",
+        options: ["Yes, consistently", "Yes, occasionally", "Thinking about it", "Not really", "No"]
+    },
+    {
+        question: "How do you usually commute?",
+        options: ["Walk/Bike", "Public transport", "Carpool", "Personal vehicle", "Varies"]
+    },
+    {
+        question: "Do you recycle waste regularly?",
+        options: ["Always", "Most items", "Some items", "Rarely", "Never"]
+    },
+    {
+        question: "How often do you buy locally sourced products?",
+        options: ["Always", "Often", "Sometimes", "Rarely", "Never"]
+    }
+];
+
+let pollAnswers = {};
+
+function renderPoll() {
+    const container = document.getElementById('pollQuestions');
+    
+    container.innerHTML = pollQuestions.map((q, qIdx) => `
+        <div class="poll-question">
+            <h3>${qIdx + 1}. ${q.question}</h3>
+            <div class="poll-options">
+                ${q.options.map((option, oIdx) => `
+                    <div class="poll-option" onclick="selectPollOption(${qIdx}, ${oIdx})">
+                        ${option}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function selectPollOption(questionIdx, optionIdx) {
+    // Save the answer
+    pollAnswers[questionIdx] = optionIdx;
+    
+    // Update UI to show selection
+    const questions = document.querySelectorAll('.poll-question');
+    const question = questions[questionIdx];
+    const options = question.querySelectorAll('.poll-option');
+    
+    options.forEach((opt, idx) => {
+        if (idx === optionIdx) {
+            opt.classList.add('selected');
+        } else {
+            opt.classList.remove('selected');
+        }
     });
 }
 
+function submitPoll() {
+    // Check if all questions are answered
+    if (Object.keys(pollAnswers).length !== pollQuestions.length) {
+        alert('Please answer all questions before submitting!');
+        return;
+    }
+    
+    // Show success message
+    const container = document.getElementById('pollQuestions');
+    container.innerHTML = `
+        <div class="success-message">
+            <div class="checkmark"></div>
+            <h2 style="color: #1f2937; margin-bottom: 1rem;">Thank You!</h2>
+            <p style="color: #6b7280; font-size: 1.1rem; margin-bottom: 2rem;">Your responses have been recorded.</p>
+            
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                ${pollQuestions.map((q, idx) => `
+                    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <p style="font-weight: 600; color: #1f2937; margin-bottom: 0.5rem;">${q.question}</p>
+                        <p style="color: #059669; font-weight: 600;">✓ ${q.options[pollAnswers[idx]]}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Change button to "Retake Poll"
+    const submitButton = document.querySelector('#poll .btn-primary');
+    submitButton.textContent = 'Retake Poll';
+    submitButton.onclick = () => {
+        pollAnswers = {};
+        renderPoll();
+        submitButton.textContent = 'Submit Poll';
+        submitButton.onclick = submitPoll;
+    };
+}
 
+// Initialize everything when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    renderGoals();
+    renderPoll();
+    
+    console.log('✅ Sustainability Tracker Loaded Successfully!');
+    console.log('📊 Dashboard ready');
+    console.log('🎯 Goals system initialized');
+    console.log('🗳️ Poll system ready');
+});
